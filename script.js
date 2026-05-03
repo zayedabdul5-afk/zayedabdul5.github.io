@@ -1,25 +1,29 @@
-function sendToWhatsApp(button) {
-    const card = button.parentElement;
-    const product = card.getAttribute('data-product');
-    const price = card.getAttribute('data-price');
-    const playerID = card.querySelector('.id-input').value;
-    const myNumber = "201080396765"; // رقمك بصيغة دولية
-
-    if (playerID.trim() === "" || playerID.length < 5) {
-        alert("يرجى إدخال ID اللاعب أولاً!");
-        return;
+// تبديل الألعاب
+function switchGame(evt, gameId) {
+    let i, content, btns;
+    content = document.getElementsByClassName("game-content");
+    for (i = 0; i < content.length; i++) {
+        content[i].style.display = "none";
+        content[i].classList.remove("active");
     }
+    btns = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < btns.length; i++) {
+        btns[i].classList.remove("active");
+    }
+    document.getElementById(gameId).style.display = "block";
+    document.getElementById(gameId).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
 
-    // تجهيز نص الرسالة
-    const message = `أهلاً نعناع ستور، أريد شراء:
-📦 المنتج: ${product}
-💰 السعر: ${price} EGP
-🆔 الآيدي: ${playerID}
-💳 وسيلة الدفع: فودافون كاش / إنستا باي`;
+// دالة الطلب عبر الواتساب
+function order(game, pack) {
+    const whatsappNum = "201114143599";
+    const paymentNum = "01155906117";
+    const message = `مرحباً اسكندر،
+أريد طلب شحن ${game}
+الباقة: ${pack}
+لقد رأيت رقم التحويل: ${paymentNum}
+سأرسل لك صورة التحويل (سكرين شوت) الآن.`;
 
-    // تحويل النص لرابط واتساب
-    const whatsappURL = `https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`;
-
-    // فتح الرابط
-    window.open(whatsappURL, '_blank');
+    window.open(`https://wa.me/${whatsappNum}?text=${encodeURIComponent(message)}`, '_blank');
 }
