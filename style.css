@@ -1,123 +1,60 @@
 :root {
-    --mint-green: #2ecc71;
-    --dark-green: #27ae60;
-    --bg-black: #0f1211;
-    --card-bg: #1a1f1d;
-    --text-color: #ffffff;
+    --gold: #d4af37; --blue: #00d2ff; --black: #080808; --dark: #121212;
 }
 
-body {
-    background-color: var(--bg-black);
-    color: var(--text-color);
-    font-family: 'Cairo', sans-serif;
-    margin: 0;
-    padding: 0;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+body { background: var(--black); color: white; overflow-x: hidden; scroll-behavior: smooth; }
 
-header {
-    background: linear-gradient(135deg, var(--dark-green), #1a1f1d);
-    padding: 50px 20px;
-    text-align: center;
-    border-bottom: 4px solid var(--mint-green);
-}
+/* الهيدر */
+header { background: #111; padding: 20px; display: flex; flex-direction: column; align-items: center; border-bottom: 2px solid #222; position: sticky; top: 0; z-index: 1000; }
+.logo { font-size: 26px; font-weight: 900; color: var(--gold); margin-bottom: 15px; }
+.tab-container { display: flex; gap: 10px; }
+.tab-btn { background: #222; border: 1px solid #444; color: #888; padding: 8px 20px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.3s; }
+.tab-btn.active { background: var(--gold); color: black; border-color: var(--gold); box-shadow: 0 0 15px var(--gold); }
 
-.logo {
-    font-size: 3rem;
-    font-weight: bold;
-    text-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
-}
+/* الأقسام */
+.game-content { display: none; animation: fadeIn 0.5s ease; }
+.game-content.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-.payment-methods {
-    text-align: center;
-    padding: 20px;
-    background: #161a18;
-}
+/* هيرو ببجي وفري فاير */
+.hero { height: 350px; display: flex; align-items: center; justify-content: space-around; padding: 0 10%; position: relative; overflow: hidden; }
+.pubg-bg { background: radial-gradient(circle, #222, #080808); }
+.ff-bg { background: radial-gradient(circle, #001a33, #080808); }
+.hero-skin { width: 220px; animation: float 3s infinite ease-in-out; z-index: 1; }
+.blue-glow { filter: drop-shadow(0 0 20px var(--blue)); }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-.payment-icons img {
-    height: 40px;
-    margin: 0 15px;
-    vertical-align: middle;
-}
+.gold-txt { color: var(--gold); }
+.blue-txt { color: var(--blue); }
 
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    padding: 50px 10%;
-}
+/* الكروت */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; padding: 40px 10%; }
+.card { background: var(--dark); padding: 30px; border-radius: 15px; text-align: center; border: 1px solid #333; transition: 0.3s; }
+.card:hover { transform: translateY(-10px); border-color: var(--gold); }
+.featured { border: 2px solid var(--gold); background: linear-gradient(145deg, #121212, #252525); }
+.price { font-size: 28px; font-weight: 900; color: var(--gold); margin: 15px 0; }
+.card button { width: 100%; padding: 12px; background: var(--gold); border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
-.card {
-    background: var(--card-bg);
-    border: 1px solid #2d3531;
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    transition: 0.3s;
-    position: relative;
-    overflow: hidden;
-}
+/* كروت فري فاير */
+.ff-card:hover { border-color: var(--blue); }
+.ff-card .price { color: var(--blue); }
+.ff-card button { background: var(--blue); }
+.featured-blue { border: 2px solid var(--blue); }
 
-.card:hover {
-    transform: translateY(-10px);
-    border-color: var(--mint-green);
-    box-shadow: 0 10px 30px rgba(46, 204, 113, 0.2);
-}
+/* الدائرة المنفجرة */
+.social-widget { position: fixed; bottom: 30px; left: 30px; z-index: 2000; }
+#social-check { display: none; }
+.main-circle { width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; color: black; cursor: pointer; transition: 0.5s; }
+#social-check:checked ~ .main-circle { transform: rotate(45deg); background: #ff4d4d; color: white; }
+.social-links { position: absolute; bottom: 70px; left: 0; list-style: none; transform: scale(0); transition: 0.4s; transform-origin: bottom left; }
+#social-check:checked ~ .social-links { transform: scale(1); }
+.social-links li { margin: 15px 0; }
+.social-links li a { width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; color: var(--clr); text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 
-.badge {
-    position: absolute;
-    top: 10px;
-    left: -30px;
-    background: #e74c3c;
-    padding: 5px 40px;
-    transform: rotate(-45deg);
-    font-size: 0.8rem;
-}
-
-.uc-amount {
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: var(--mint-green);
-    display: block;
-}
-
-.price {
-    font-size: 1.5rem;
-    margin: 15px 0;
-    color: #bdc3c7;
-}
-
-.id-input {
-    width: 100%;
-    padding: 12px;
-    background: #000;
-    border: 1px solid var(--dark-green);
-    color: #fff;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.buy-btn {
-    width: 100%;
-    padding: 15px;
-    background: var(--mint-green);
-    color: #000;
-    border: none;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: 0.3s;
-}
-
-.buy-btn:hover {
-    background: #fff;
-    color: var(--dark-green);
-}
-
-footer {
-    text-align: center;
-    padding: 40px;
-    border-top: 1px solid #2d3531;
-    color: #7f8c8d;
-}
+/* الدفع */
+.payment-box { background: #111; padding: 40px 10%; text-align: center; border-top: 1px solid #222; }
+.alert-banner { background: #600; padding: 10px; margin-bottom: 25px; border-radius: 5px; font-size: 14px; }
+.pay-num { font-size: 24px; margin-top: 15px; }
+.pay-num span { color: var(--gold); font-weight: 900; text-decoration: underline; }
+footer { padding: 20px; color: #555; font-size: 14px; text-align: center; }
